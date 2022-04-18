@@ -71,6 +71,7 @@ func testBridgeWithCarrier(t *testing.T, carrier interface{}) {
 	otel.SetTextMapPropagator(propagation.TraceContext{})
 
 	span := bridgeTracer.StartSpan("testSpan1")
+	span.SetBaggageItem("foo", "bar")
 	defer span.Finish()
 
 	err := bridgeTracer.Inject(span.Context(), ot.HTTPHeaders, carrier)
